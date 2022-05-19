@@ -185,6 +185,13 @@ void checkDetailOfAccount(struct User u, int accountNum){
                    r.phone,
                    r.amount,
                    r.accountType);
+
+                   switch(r.accountType){
+                       case "savings":
+                       rate = 0.07;
+                       break;
+                       //continue
+                   }
         }
     }
 
