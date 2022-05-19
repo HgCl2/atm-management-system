@@ -87,6 +87,7 @@ void registerMenu(char a[50], char pass[50]){
     }
 
     FILE *fp;
+    char* names[100]; 
     struct User userChecker;
     char id[5];
     int counter = 0;
@@ -99,6 +100,7 @@ void registerMenu(char a[50], char pass[50]){
 
     while (fscanf(fp, "%s %s %s", id, userChecker.name, userChecker.password) != EOF)
     {
+        names[counter] = userChecker.name;
         counter++;
     }
 
@@ -106,7 +108,14 @@ void registerMenu(char a[50], char pass[50]){
         fprintf(fp, "\n");
     }
 
-    fprintf(fp, "%d %s %s", counter, a, pass);
+    if(isContain(names, a)){
+        printf("That name is taken. Please enter another name!\n");
+        exit(1);
+    }
+    else{
+        fprintf(fp, "%d %s %s", counter, a, pass);
+    }
+    
     fclose(fp);
 
 }
