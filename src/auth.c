@@ -46,8 +46,6 @@ const char *getPassword(struct User u)
 
     while (fscanf(fp, "%s %s %s", id, userChecker.name, userChecker.password) != EOF)
     {
-        printf("%s %s\n", userChecker.name, userChecker.password);
-        printf("%s %s\n", u.name, u.password);
         if (strcmp(userChecker.name, u.name) == 0)
         {
             fclose(fp);
@@ -87,4 +85,28 @@ void registerMenu(char a[50], char pass[50]){
         perror("tcsetattr");
         return exit(1);
     }
+
+    FILE *fp;
+    struct User userChecker;
+    char id[5];
+    int counter = 0;
+
+    if ((fp = fopen("./data/users.txt", "a+")) == NULL)
+    {
+        printf("Error! opening file");
+        exit(1);
+    }
+
+    while (fscanf(fp, "%s %s %s", id, userChecker.name, userChecker.password) != EOF)
+    {
+        counter++;
+    }
+
+    if (counter != 0){
+        fprintf(fp, "\n");
+    }
+
+    fprintf(fp, "%d %s %s", counter, a, pass);
+    fclose(fp);
+
 }
