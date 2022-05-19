@@ -39,6 +39,7 @@ const char *getPassword(struct User u);
 void createNewAcc(struct User u);
 void mainMenu(struct User u);
 void checkAllAccounts(struct User u);
+void checkDetailOfAccount(struct User u, int accountID);
 
 // additionally functions
 bool isContain(char* array[100], char* str);

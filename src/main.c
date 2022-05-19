@@ -3,6 +3,7 @@
 void mainMenu(struct User u)
 {
     int option;
+    int accountNum;
     system("clear");
     printf("\n\n\t\t======= ATM =======\n\n");
     printf("\n\t\t-->> Feel free to choose one of the options below <<--\n");
@@ -28,6 +29,9 @@ void mainMenu(struct User u)
     case 3:
         // student TODO : add your **Check the details of existing accounts** function
         // here
+        printf("Enter the account number:");
+        scanf("%d", &accountNum);
+        checkDetailOfAccount(u, accountNum);
         break;
     case 4:
         checkAllAccounts(u);
