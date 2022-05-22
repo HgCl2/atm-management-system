@@ -4,6 +4,7 @@ void mainMenu(struct User u)
 {
     int option;
     int accountNum;
+    int commandNum;
     system("clear");
     printf("\n\n\t\t======= ATM =======\n\n");
     printf("\n\t\t-->> Feel free to choose one of the options below <<--\n");
@@ -23,8 +24,12 @@ void mainMenu(struct User u)
         createNewAcc(u);
         break;
     case 2:
-        // student TODO : add your **Update account information** function
-        // here
+        printf("What is the account number you want to change:");
+        scanf("%d", &accountNum);
+        printf("\nWhich information do you want to update?\n1-> phone number\n2-> country\n");
+        scanf("%d", &commandNum);
+        updateAccountInfo(u, accountNum, commandNum);
+
         break;
     case 3:
         // student TODO : add your **Check the details of existing accounts** function

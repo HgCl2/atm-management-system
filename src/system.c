@@ -187,21 +187,20 @@ void checkDetailOfAccount(struct User u, int accountNum){
                     r.accountType);
 
             float rate;
-            switch(r.accountType[6]){
-                case 's':
-                    rate = 0.07;
-                    break;
-                case '1':
-                    rate = 0.04;
-                    break;
-                case '2':
-                    rate = 0.05;
-                    break;
-                case '3':
-                    rate = 0.08;
-                    break;
-                default:
-                    rate = 0;
+            if(strcmp(r.accountType, "saving") == 0){
+                rate = 0.07;
+            }
+            else if(strcmp(r.accountType, "fixed01") == 0){
+                rate = 0.04;
+            }
+            else if(strcmp(r.accountType, "fixed02") == 0){
+                rate = 0.05;
+            }
+            else if(strcmp(r.accountType, "fixed03") == 0){
+                rate = 0.08;
+            }
+            else{
+                rate = 0;
             }
 
             if (rate == 0){
@@ -217,4 +216,30 @@ void checkDetailOfAccount(struct User u, int accountNum){
         }
     }
 
+}
+
+void updateAccountInfo(struct User u, int accountNum, int commandNum){
+    char userName[100];
+    struct Record r;
+    FILE *pf = fopen(RECORDS, "a+");
+
+    system("clear");
+    while (getAccountFromFile(pf, userName, &r))
+    {
+        if(strcmp(userName, u.name) == 0 &&
+            r.accountNbr == accountNum){
+            if(commandNum == 1){
+                printf("Enter the new phone number:");
+                scanf("%d", &r.phone);
+            }
+            else if(commandNum == 2){
+                printf("Enter the new country:");
+                scanf("%s", r.country);
+            }
+        }
+    }
+
+    saveAccountToFile(pf, u, r);
+    fclose(pf);
+    success(u);
 }
