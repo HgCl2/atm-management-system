@@ -177,21 +177,43 @@ void checkDetailOfAccount(struct User u, int accountNum){
         {
             printf("_____________________\n");
             printf("\nAccount number:%d\nDeposit Date:%d/%d/%d \ncountry:%s \nPhone number:%d \nAmount deposited: $%.2f \nType Of Account:%s\n",
-                   r.accountNbr,
-                   r.deposit.day,
-                   r.deposit.month,
-                   r.deposit.year,
-                   r.country,
-                   r.phone,
-                   r.amount,
-                   r.accountType);
+                    r.accountNbr,
+                    r.deposit.day,
+                    r.deposit.month,
+                    r.deposit.year,
+                    r.country,
+                    r.phone,
+                    r.amount,
+                    r.accountType);
 
-                   switch(r.accountType){
-                       case "savings":
-                       rate = 0.07;
-                       break;
-                       //continue
-                   }
+            float rate;
+            switch(r.accountType[6]){
+                case 's':
+                    rate = 0.07;
+                    break;
+                case '1':
+                    rate = 0.04;
+                    break;
+                case '2':
+                    rate = 0.05;
+                    break;
+                case '3':
+                    rate = 0.08;
+                    break;
+                default:
+                    rate = 0;
+            }
+
+            if (rate == 0){
+                printf("You will not get interests because the account is of type current\n");
+            }
+            else{
+                float interest = r.amount * (1 + rate / 12) - r.amount;
+                printf(" -> You will get $%.2f as interest on day 10 of every month\n", interest);
+            }
+
+            fclose(pf);
+            success(u);
         }
     }
 
