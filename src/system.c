@@ -221,11 +221,14 @@ void checkDetailOfAccount(struct User u, int accountNum){
 void updateAccountInfo(struct User u, int accountNum, int commandNum){
     char userName[100];
     struct Record r;
+    struct Record arr[100];
     FILE *pf = fopen(RECORDS, "a+");
 
     system("clear");
+
+    int index = 0;
     while (getAccountFromFile(pf, userName, &r))
-    {
+    {      
         if(strcmp(userName, u.name) == 0 &&
             r.accountNbr == accountNum){
             if(commandNum == 1){
@@ -237,9 +240,17 @@ void updateAccountInfo(struct User u, int accountNum, int commandNum){
                 scanf("%s", r.country);
             }
         }
+        arr[index] = r;
+        index++;
     }
 
-    saveAccountToFile(pf, u, r);
+    // clear the file
+    fclose(fopen(RECORDS, "w"));
+
+    for (int i = 0; i < index; i++){
+        saveAccountToFile(pf, u, arr[i]);
+    }
+
     fclose(pf);
     success(u);
 }
