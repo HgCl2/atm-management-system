@@ -41,6 +41,7 @@ void mainMenu(struct User u);
 void checkAllAccounts(struct User u);
 void checkDetailOfAccount(struct User u, int accountID);
 void updateAccountInfo(struct User u, int accountNum, int commandNum);
+void makeTransaction(struct User u, int accountNum, int commandNum);
 
 // additionally functions
 bool isContain(char* array[100], char* str);

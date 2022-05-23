@@ -32,8 +32,6 @@ void mainMenu(struct User u)
 
         break;
     case 3:
-        // student TODO : add your **Check the details of existing accounts** function
-        // here
         printf("Enter the account number:");
         scanf("%d", &accountNum);
         checkDetailOfAccount(u, accountNum);
@@ -44,6 +42,12 @@ void mainMenu(struct User u)
     case 5:
         // student TODO : add your **Make transaction** function
         // here
+        printf("Enter the account number of the customer:");
+        scanf("%d", &accountNum);
+        printf("Do you want to:\n        1-> Withdraw\n        2-> Deposit\n\n");
+        printf("Enter your choice:");
+        scanf("%d", &commandNum);
+        makeTransaction(u, accountNum, commandNum);
         break;
     case 6:
         // student TODO : add your **Remove existing account** function

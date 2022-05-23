@@ -254,3 +254,14 @@ void updateAccountInfo(struct User u, int accountNum, int commandNum){
     fclose(pf);
     success(u);
 }
+
+void makeTransaction(struct User u, int accountNum, int commandNum){
+    char userName[100];
+    struct Record r;
+    FILE *pf = fopen(RECORDS, "a+");
+
+    while (getAccountFromFile(pf, userName, &r))
+    {
+        
+    }
+}
