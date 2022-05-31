@@ -266,7 +266,6 @@ void makeTransaction(struct User u, int accountNum, int commandNum){
     double input = 0;
     while (getAccountFromFile(pf, userName, &r))
     {
-
         if(strcmp(userName, u.name) == 0 &&
             r.accountNbr == accountNum){
             if(strcmp(r.accountType, "fixed01") == 0 ||
@@ -279,6 +278,7 @@ void makeTransaction(struct User u, int accountNum, int commandNum){
 
             available = r.amount;
 
+            
             if(commandNum == 1){
                 printf("Enter the amount you want to withdraw:");
                 scanf("%lf", &input);
@@ -294,12 +294,12 @@ void makeTransaction(struct User u, int accountNum, int commandNum){
         }
         else if (commandNum == 1 && input > 0){
             system("clear");
-            printf("✖ The amount you chose to withdraw is superior to your available balance")
+            printf("✖ The amount you chose to withdraw is superior to your available balance");
             mainMenu(u);
         }
         else if(commandNum == 1 && input <= 0){
             system("clear");
-            printf("✖ You can't withdraw cash equals 0 or less than 0.")
+            printf("✖ You can't withdraw cash equals 0 or less than 0.");
             mainMenu(u);
         }
         else if (commandNum == 2 && input > 0 && input <= 200000){
@@ -307,16 +307,26 @@ void makeTransaction(struct User u, int accountNum, int commandNum){
         }
         else if(commandNum == 2 && input > 0){
             system("clear");
-            printf("✖ You cannot deposit cash greater than 200 thousands.")
+            printf("✖ You cannot deposit cash greater than 200 thousands.");
             mainMenu(u);
         }
         else if (commandNum == 2){
             system("clear");
-            printf("✖ You cannot deposit cash equal 0 or less than 0.")
+            printf("✖ You cannot deposit cash equal 0 or less than 0.");
             mainMenu(u);
         }
 
         arr[index] = r;
         index++;
     }
+
+    // clear the file
+    fclose(fopen(RECORDS, "w"));
+
+    for (int i = 0; i < index; i++){
+        saveAccountToFile(pf, u, arr[i]);
+    }
+
+    fclose(pf);
+    success(u);
 }
