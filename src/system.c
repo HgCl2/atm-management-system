@@ -34,6 +34,22 @@ void saveAccountToFile(FILE *ptr, struct User u, struct Record r)
             r.accountType);
 }
 
+void saveRecordToFile(FILE *ptr, struct Record r)
+{
+    fprintf(ptr, "%d %d %s %d %d/%d/%d %s %d %.2lf %s\n\n",
+            r.id,
+	        r.userId,
+	        r.name,
+            r.accountNbr,
+            r.deposit.month,
+            r.deposit.day,
+            r.deposit.year,
+            r.country,
+            r.phone,
+            r.amount,
+            r.accountType);
+}
+
 void stayOrReturn(int notGood, void f(struct User u), struct User u)
 {
     int option;
@@ -228,7 +244,9 @@ void updateAccountInfo(struct User u, int accountNum, int commandNum){
 
     int index = 0;
     while (getAccountFromFile(pf, userName, &r))
-    {      
+    {   
+        strcpy(r.name, userName);
+
         if(strcmp(userName, u.name) == 0 &&
             r.accountNbr == accountNum){
             if(commandNum == 1){
@@ -240,6 +258,7 @@ void updateAccountInfo(struct User u, int accountNum, int commandNum){
                 scanf("%s", r.country);
             }
         }
+
         arr[index] = r;
         index++;
     }
@@ -248,7 +267,7 @@ void updateAccountInfo(struct User u, int accountNum, int commandNum){
     fclose(fopen(RECORDS, "w"));
 
     for (int i = 0; i < index; i++){
-        saveAccountToFile(pf, u, arr[i]);
+        saveRecordToFile(pf, arr[i]);
     }
 
     fclose(pf);
@@ -266,6 +285,8 @@ void makeTransaction(struct User u, int accountNum, int commandNum){
     double input = 0;
     while (getAccountFromFile(pf, userName, &r))
     {
+        strcpy(r.name, userName);
+
         if(strcmp(userName, u.name) == 0 &&
             r.accountNbr == accountNum){
             if(strcmp(r.accountType, "fixed01") == 0 ||
@@ -324,7 +345,53 @@ void makeTransaction(struct User u, int accountNum, int commandNum){
     fclose(fopen(RECORDS, "w"));
 
     for (int i = 0; i < index; i++){
-        saveAccountToFile(pf, u, arr[i]);
+        saveRecordToFile(pf, arr[i]);
+    }
+
+    fclose(pf);
+    success(u);
+}
+
+void removeAccount(struct  User u, int accountNum){
+    char userName[100];
+    struct Record r;
+    struct Record deleted;
+    struct Record arr[100];
+    FILE *pf = fopen(RECORDS, "a+");
+
+    int index = 0;
+    while (getAccountFromFile(pf, userName, &r))
+    {
+        strcpy(r.name, userName);
+
+        if(strcmp(userName, u.name) == 0 &&
+            r.accountNbr == accountNum){
+            deleted = r;
+        }
+        else{
+            arr[index] = r;
+            index++;
+        }
+        
+    }
+
+    system("clear");
+    printf("                       ===== Deleted account =====\n");
+    printf("\nAccount number:%d\nDeposit Date:%d/%d/%d \ncountry:%s \nPhone number:%d \nAmount deposited: $%.2f \nType Of Account:%s\n",
+        deleted.accountNbr,
+        deleted.deposit.day,
+        deleted.deposit.month,
+        deleted.deposit.year,
+        deleted.country,
+        deleted.phone,
+        deleted.amount,
+        deleted.accountType);
+    
+    // clear the file
+    fclose(fopen(RECORDS, "w"));
+
+    for (int i = 0; i < index; i++){
+        saveRecordToFile(pf, arr[i]);
     }
 
     fclose(pf);
