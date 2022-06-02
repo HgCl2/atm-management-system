@@ -287,33 +287,33 @@ void makeTransaction(struct User u, int accountNum, int commandNum){
                 printf("Enter the amount you want to deposit:");
                 scanf("%lf", &input);
             }
-        }
 
-        if (input <= available && input > 0 && commandNum == 1){
-            r.amount -= input;
-        }
-        else if (commandNum == 1 && input > 0){
-            system("clear");
-            printf("✖ The amount you chose to withdraw is superior to your available balance");
-            mainMenu(u);
-        }
-        else if(commandNum == 1 && input <= 0){
-            system("clear");
-            printf("✖ You can't withdraw cash equals 0 or less than 0.");
-            mainMenu(u);
-        }
-        else if (commandNum == 2 && input > 0 && input <= 200000){
-            r.amount += input;
-        }
-        else if(commandNum == 2 && input > 0){
-            system("clear");
-            printf("✖ You cannot deposit cash greater than 200 thousands.");
-            mainMenu(u);
-        }
-        else if (commandNum == 2){
-            system("clear");
-            printf("✖ You cannot deposit cash equal 0 or less than 0.");
-            mainMenu(u);
+            if (input <= available && input > 0 && commandNum == 1){
+                r.amount -= input;
+            }
+            else if (commandNum == 1 && input > 0){
+                system("clear");
+                printf("✖ The amount you chose to withdraw is superior to your available balance");
+                mainMenu(u);
+            }
+            else if(commandNum == 1 && input <= 0){
+                system("clear");
+                printf("✖ You can't withdraw cash equals 0 or less than 0.");
+                mainMenu(u);
+            }
+            else if (commandNum == 2 && input > 0 && input <= 200000){
+                r.amount += input;
+            }
+            else if(commandNum == 2 && input > 0){
+                system("clear");
+                printf("✖ You cannot deposit cash greater than 200 thousands.");
+                mainMenu(u);
+            }
+            else if (commandNum == 2){
+                system("clear");
+                printf("✖ You cannot deposit cash equal 0 or less than 0.");
+                mainMenu(u);
+            }
         }
 
         arr[index] = r;
