@@ -5,6 +5,7 @@ void mainMenu(struct User u)
     int option;
     int accountNum;
     int commandNum;
+    char ownerName[100];
     system("clear");
     printf("\n\n\t\t======= ATM =======\n\n");
     printf("\n\t\t-->> Feel free to choose one of the options below <<--\n");
@@ -48,15 +49,14 @@ void mainMenu(struct User u)
         makeTransaction(u, accountNum, commandNum);
         break;
     case 6:
-        // student TODO : add your **Remove existing account** function
-        // here
         printf("Enter the account number you want to delete:");
         scanf("%d", &accountNum);
         removeAccount(u, accountNum);
         break;
     case 7:
-        // student TODO : add your **Transfer owner** function
-        // here
+        printf("Enter the account number you want to transfere ownership:");
+        scanf("%d", &accountNum);
+        transfereAccount(u, accountNum);
         break;
     case 8:
         exit(1);

@@ -191,7 +191,6 @@ void checkDetailOfAccount(struct User u, int accountNum){
         if (strcmp(userName, u.name) == 0 &&
             r.accountNbr == accountNum)
         {
-            printf("_____________________\n");
             printf("\nAccount number:%d\nDeposit Date:%d/%d/%d \ncountry:%s \nPhone number:%d \nAmount deposited: $%.2f \nType Of Account:%s\n",
                     r.accountNbr,
                     r.deposit.day,
@@ -348,6 +347,7 @@ void makeTransaction(struct User u, int accountNum, int commandNum){
         saveRecordToFile(pf, arr[i]);
     }
 
+    system("clear");
     fclose(pf);
     success(u);
 }
@@ -396,4 +396,76 @@ void removeAccount(struct  User u, int accountNum){
 
     fclose(pf);
     success(u);
+}
+
+void transfereAccount(struct User u, int accountNum){
+    char userName[100];
+    char ownerName[100];
+    struct Record r;
+    struct Record arr[100];
+    FILE *pf = fopen(RECORDS, "a+");
+
+    int index = 0;
+    while (getAccountFromFile(pf, userName, &r))
+    {
+        strcpy(userName, r.name);
+        if (strcmp(userName, u.name) == 0 &&
+            r.accountNbr == accountNum)
+        {
+            printf("                       ===== Transfering account:\n");
+            printf("\nAccount number:%d\nDeposit Date:%d/%d/%d \ncountry:%s \nPhone number:%d \nAmount deposited: $%.2f \nType Of Account:%s\n",
+                    r.accountNbr,
+                    r.deposit.day,
+                    r.deposit.month,
+                    r.deposit.year,
+                    r.country,
+                    r.phone,
+                    r.amount,
+                    r.accountType);
+        }
+
+        arr[index] = r;
+        index++;
+    }
+    
+    fclose(pf);
+
+    printf("Which user you want transfer ownership to (user name):");
+    scanf("%s", ownerName);
+    int ownerId;
+    ownerId = getUserId(ownerName);
+
+    for(int i = 0; i < index; i++){
+        if(strcpy(arr[i].name, u.name) == 0 &&
+            arr[i].accountNbr == accountNum){
+            strcpy(arr[i].name, ownerName);
+            arr[i].userId = ownerId;
+        }
+    }
+    
+    // clear the file
+    fclose(fopen(RECORDS, "w"));
+    
+    pf = fopen(RECORDS, "a+");
+    for (int i = 0; i < index; i++){
+        saveRecordToFile(pf, arr[i]);
+    }
+
+    fclose(pf);
+    success(u);
+    
+}
+
+int getUserId(char *name){
+    FILE *pf = fopen("./data/users.txt", "r+");
+
+    char id[5];
+    struct User temp; 
+    while(fscanf(pf, "%s %s %s", id, temp.name, temp.password) != EOF){
+        if(strcmp(temp.name, name) == 0){
+            return atoi(id);
+        }
+    }
+
+    return -1;
 }

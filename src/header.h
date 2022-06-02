@@ -43,6 +43,8 @@ void checkDetailOfAccount(struct User u, int accountID);
 void updateAccountInfo(struct User u, int accountNum, int commandNum);
 void makeTransaction(struct User u, int accountNum, int commandNum);
 void removeAccount(struct  User u, int accountNum);
+void transfereAccount(struct User u, int accountNum);
 
 // additionally functions
 bool isContain(char* array[100], char* str);
+int getUserId(char *name);
