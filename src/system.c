@@ -408,7 +408,7 @@ void transfereAccount(struct User u, int accountNum){
     int index = 0;
     while (getAccountFromFile(pf, userName, &r))
     {
-        strcpy(userName, r.name);
+        strcpy(r.name, userName);
         if (strcmp(userName, u.name) == 0 &&
             r.accountNbr == accountNum)
         {
@@ -436,7 +436,7 @@ void transfereAccount(struct User u, int accountNum){
     ownerId = getUserId(ownerName);
 
     for(int i = 0; i < index; i++){
-        if(strcpy(arr[i].name, u.name) == 0 &&
+        if(strcmp(arr[i].name, u.name) == 0 &&
             arr[i].accountNbr == accountNum){
             strcpy(arr[i].name, ownerName);
             arr[i].userId = ownerId;
@@ -460,7 +460,7 @@ int getUserId(char *name){
     FILE *pf = fopen("./data/users.txt", "r+");
 
     char id[5];
-    struct User temp; 
+    struct User temp;
     while(fscanf(pf, "%s %s %s", id, temp.name, temp.password) != EOF){
         if(strcmp(temp.name, name) == 0){
             return atoi(id);
