@@ -112,6 +112,11 @@ int main()
 {
     struct User u;
     
+    if(!usersChecker()){
+        printf("users.txt is invalid.\n");
+        return 0;
+    }
+
     initMenu(&u);
     mainMenu(u);
     return 0;
