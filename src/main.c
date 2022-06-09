@@ -116,6 +116,10 @@ int main()
         printf("users.txt is invalid.\n");
         return 0;
     }
+    else if(!recordsChecker()){
+        printf("records.txt is invalid\n");
+        return 0;
+    }
 
     initMenu(&u);
     mainMenu(u);
