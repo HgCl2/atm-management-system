@@ -1,6 +1,6 @@
 #include "header.h"
 
-bool isContain(char* array[100], char* str){
+bool isContain(char array[100][100], char* str){
     for (int i = 0; i < 100; i++){
         if (strcmp(array[i], str) == 0){
             return true;

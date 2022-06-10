@@ -87,7 +87,7 @@ void registerMenu(char a[50], char pass[50]){
     }
 
     FILE *fp;
-    char* names[100]; 
+    char names[100][100]; 
     struct User userChecker;
     char id[5];
     int counter = 0;
@@ -100,7 +100,7 @@ void registerMenu(char a[50], char pass[50]){
 
     while (fscanf(fp, "%s %s %s", id, userChecker.name, userChecker.password) != EOF)
     {
-        names[counter] = userChecker.name;
+        strcpy(names[counter], userChecker.name);
         counter++;
     }
 

@@ -46,7 +46,7 @@ void removeAccount(struct  User u, int accountNum);
 void transfereAccount(struct User u, int accountNum);
 
 // additionally functions
-bool isContain(char* array[100], char* str);
+bool isContain(char array[100][100], char* str);
 int getUserId(char *name);
 bool usersChecker();
 bool recordsChecker();
