@@ -50,3 +50,4 @@ bool isContain(char array[100][100], char* str);
 int getUserId(char *name);
 bool usersChecker();
 bool recordsChecker();
+bool IsAccountNumContained(int num);

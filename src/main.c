@@ -27,6 +27,11 @@ void mainMenu(struct User u)
     case 2:
         printf("What is the account number you want to change:");
         scanf("%d", &accountNum);
+        if (!IsAccountNumContained(accountNum)){
+            system("clear");
+            printf("This account don't exist.");
+            mainMenu(u);
+        }
         printf("\nWhich information do you want to update?\n1-> phone number\n2-> country\n");
         scanf("%d", &commandNum);
         updateAccountInfo(u, accountNum, commandNum);
