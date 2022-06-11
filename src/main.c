@@ -40,6 +40,11 @@ void mainMenu(struct User u)
     case 3:
         printf("Enter the account number:");
         scanf("%d", &accountNum);
+        if (!IsAccountNumContained(accountNum)){
+            system("clear");
+            printf("This account don't exist.");
+            mainMenu(u);
+        }
         checkDetailOfAccount(u, accountNum);
         break;
     case 4:
@@ -48,6 +53,11 @@ void mainMenu(struct User u)
     case 5:
         printf("Enter the account number of the customer:");
         scanf("%d", &accountNum);
+        if (!IsAccountNumContained(accountNum)){
+            system("clear");
+            printf("This account don't exist.");
+            mainMenu(u);
+        }
         printf("Do you want to:\n        1-> Withdraw\n        2-> Deposit\n\n");
         printf("Enter your choice:");
         scanf("%d", &commandNum);
@@ -56,11 +66,21 @@ void mainMenu(struct User u)
     case 6:
         printf("Enter the account number you want to delete:");
         scanf("%d", &accountNum);
+        if (!IsAccountNumContained(accountNum)){
+            system("clear");
+            printf("This account don't exist.");
+            mainMenu(u);
+        }
         removeAccount(u, accountNum);
         break;
     case 7:
         printf("Enter the account number you want to transfere ownership:");
         scanf("%d", &accountNum);
+        if (!IsAccountNumContained(accountNum)){
+            system("clear");
+            printf("This account don't exist.");
+            mainMenu(u);
+        }
         transfereAccount(u, accountNum);
         break;
     case 8:

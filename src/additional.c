@@ -11,16 +11,16 @@ bool isContain(char array[100][100], char* str){
 }
 
 bool IsAccountNumContained(int num){
-    struct Record *r;
-    FILE *pf = fopen("./data/records.txt", "r");
-    
+    struct Record r;
+    FILE *pf = fopen("./data/records.txt", "r+");
+
     while(fscanf(pf, "%d %d %s %d %d/%d/%d %s %d %lf %s",
-        &r->id, &r->userId, r->name, &r->accountNbr,
-        &r->deposit.month, &r->deposit.day,
-        &r->deposit.year, r->country,
-        &r->phone, &r->amount, r->accountType) != EOF){
+        &r.id, &r.userId, r.name, &r.accountNbr,
+        &r.deposit.month, &r.deposit.day,
+        &r.deposit.year, r.country,
+        &r.phone, &r.amount, r.accountType) != EOF){
         
-        if(num == r->accountNbr){
+        if(num == r.accountNbr){
             return true;
         }
     }
