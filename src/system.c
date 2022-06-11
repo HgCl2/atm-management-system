@@ -127,15 +127,22 @@ noAccount:
 date:
     printf("\nEnter today's date(mm/dd/yyyy):");
     scanf("%d/%d/%d", &r.deposit.month, &r.deposit.day, &r.deposit.year);
-    if(r.deposit.month < 0 || r.deposit.month > 12 ||
-        r.deposit.day < 0 || r.deposit.day > 31 ||
+
+    if(r.deposit.month <= 0 || r.deposit.month > 12 ||
+        r.deposit.day <= 0 || r.deposit.day > 31 ||
         r.deposit.year < 1900 || r.deposit.year > 2900){
-        printf("Invalid date.");
+        printf("Invalid date.\n");
         goto date;
     }
 
+accountNumber:
     printf("\nEnter the account number:");
     scanf("%d", &r.accountNbr);
+    if (r.accountNbr <= 0)
+    {
+        printf("Invalid account number.\n");
+        goto accountNumber;
+    }
     
     while (getAccountFromFile(pf, userName, &cr))
     {
@@ -150,15 +157,24 @@ date:
     r.id = index;
     printf("\nEnter the country:");
     scanf("%s", r.country);
-    
+
+phone:
     printf("\nEnter the phone number:");
     scanf("%d", &r.phone);
+    if(r.phone == 0){
+        printf("Invalid phone number.\n");
+        goto phone;
+    }
 
 amount:
     printf("\nEnter amount to deposit: $");
     scanf("%lf", &r.amount);
-    if(r.amount < 0 || r.amount > 10000000){
+    if(r.amount < 0 || r.amount > 1000000){
         printf("\nToo less or too many for account.\n");
+        goto amount;
+    }
+    else if(r.amount == 0){
+        printf("Invalid amount.\n");
         goto amount;
     }
 
