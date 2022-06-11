@@ -124,8 +124,16 @@ noAccount:
     system("clear");
     printf("\t\t\t===== New record =====\n");
 
+date:
     printf("\nEnter today's date(mm/dd/yyyy):");
     scanf("%d/%d/%d", &r.deposit.month, &r.deposit.day, &r.deposit.year);
+    if(r.deposit.month < 0 || r.deposit.month > 12 ||
+        r.deposit.day < 0 || r.deposit.day > 31 ||
+        r.deposit.year < 1900 || r.deposit.year > 2900){
+        printf("Invalid date.");
+        goto date;
+    }
+
     printf("\nEnter the account number:");
     scanf("%d", &r.accountNbr);
     
@@ -133,7 +141,7 @@ noAccount:
     {
         if (strcmp(userName, u.name) == 0 && cr.accountNbr == r.accountNbr)
         {
-            printf("✖ This Account already exists for this user\n\n");
+            printf("\n✖ This Account already exists for this user\n\n");
             goto noAccount;
         }
         index++;
@@ -142,14 +150,32 @@ noAccount:
     r.id = index;
     printf("\nEnter the country:");
     scanf("%s", r.country);
+    
     printf("\nEnter the phone number:");
     scanf("%d", &r.phone);
+
+amount:
     printf("\nEnter amount to deposit: $");
     scanf("%lf", &r.amount);
+    if(r.amount < 0 || r.amount > 10000000){
+        printf("\nToo less or too many for account.\n");
+        goto amount;
+    }
+
+accountType:
     printf("\nChoose the type of account:\n\t-> saving\n\t-> current\n\t-> fixed01(for 1 year)\n\t-> fixed02(for 2 years)\n\t-> fixed03(for 3 years)\n\n\tEnter your choice:");
     scanf("%s", r.accountType);
+    if (strcmp(r.accountType, "current") != 0 &&
+        strcmp(r.accountType, "saving") != 0 &&
+        strcmp(r.accountType, "fixed01") != 0 &&
+        strcmp(r.accountType, "fixed02") != 0 &&
+        strcmp(r.accountType, "fixed03") != 0){
+        printf("\nThis type of account don't exist.\n");
+        goto accountType;
+    }
 
     fprintf(pf,"\n");
+    
     saveAccountToFile(pf, u, r);
 
     fclose(pf);
