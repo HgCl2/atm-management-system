@@ -209,26 +209,32 @@ void checkDetailOfAccount(struct User u, int accountNum){
             float rate;
             if(strcmp(r.accountType, "saving") == 0){
                 rate = 0.07;
+                float interest = r.amount * (1 + rate / 12) - r.amount;
+                printf(" -> You will get $%.2f as interest on day 10 of every month\n", interest);
             }
             else if(strcmp(r.accountType, "fixed01") == 0){
                 rate = 0.04;
+                float interest = r.amount * (1 + rate / 12) - r.amount;
+                interest *= 12;
+                printf(" -> You will get $%.2f as interest on %d/%d/%d\n", interest, 
+                    r.deposit.month, r.deposit.day, r.deposit.year+1);
             }
             else if(strcmp(r.accountType, "fixed02") == 0){
                 rate = 0.05;
+                float interest = r.amount * (1 + rate / 12) - r.amount;
+                interest *= 24;
+                printf(" -> You will get $%.2f as interest on %d/%d/%d\n", interest, 
+                    r.deposit.month, r.deposit.day, r.deposit.year+2);
             }
             else if(strcmp(r.accountType, "fixed03") == 0){
                 rate = 0.08;
-            }
-            else{
-                rate = 0;
-            }
-
-            if (rate == 0){
-                printf("You will not get interests because the account is of type current\n");
-            }
-            else{
                 float interest = r.amount * (1 + rate / 12) - r.amount;
-                printf(" -> You will get $%.2f as interest on day 10 of every month\n", interest);
+                interest *= 36;
+                printf(" -> You will get $%.2f as interest on %d/%d/%d\n", interest, 
+                    r.deposit.month, r.deposit.day, r.deposit.year+3);
+            }
+            else{
+                printf("You will not get interests because the account is of type current\n");
             }
 
             fclose(pf);
@@ -417,6 +423,7 @@ void transfereAccount(struct User u, int accountNum){
         if (strcmp(userName, u.name) == 0 &&
             r.accountNbr == accountNum)
         {
+            system("clear");
             printf("                       ===== Transfering account:\n");
             printf("\nAccount number:%d\nDeposit Date:%d/%d/%d \ncountry:%s \nPhone number:%d \nAmount deposited: $%.2f \nType Of Account:%s\n",
                     r.accountNbr,
@@ -437,6 +444,10 @@ void transfereAccount(struct User u, int accountNum){
 
     printf("Which user you want transfer ownership to (user name):");
     scanf("%s", ownerName);
+    if(!IsNameContained(ownerName)){
+        printf("This user don't exist.");
+        mainMenu(u);
+    }
     int ownerId;
     ownerId = getUserId(ownerName);
 
