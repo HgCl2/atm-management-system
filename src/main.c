@@ -27,7 +27,7 @@ void mainMenu(struct User u)
     case 2:
         printf("What is the account number you want to change:");
         scanf("%d", &accountNum);
-        if (!IsAccountNumContained(accountNum)){
+        if (!IsAccountNumContained(accountNum, u)){
             system("clear");
             printf("This account don't exist.");
             mainMenu(u);
@@ -40,7 +40,7 @@ void mainMenu(struct User u)
     case 3:
         printf("Enter the account number:");
         scanf("%d", &accountNum);
-        if (!IsAccountNumContained(accountNum)){
+        if (!IsAccountNumContained(accountNum, u)){
             system("clear");
             printf("This account don't exist.");
             mainMenu(u);
@@ -53,7 +53,7 @@ void mainMenu(struct User u)
     case 5:
         printf("Enter the account number of the customer:");
         scanf("%d", &accountNum);
-        if (!IsAccountNumContained(accountNum)){
+        if (!IsAccountNumContained(accountNum, u)){
             system("clear");
             printf("This account don't exist.");
             mainMenu(u);
@@ -66,7 +66,7 @@ void mainMenu(struct User u)
     case 6:
         printf("Enter the account number you want to delete:");
         scanf("%d", &accountNum);
-        if (!IsAccountNumContained(accountNum)){
+        if (!IsAccountNumContained(accountNum, u)){
             system("clear");
             printf("This account don't exist.");
             mainMenu(u);
@@ -76,7 +76,7 @@ void mainMenu(struct User u)
     case 7:
         printf("Enter the account number you want to transfere ownership:");
         scanf("%d", &accountNum);
-        if (!IsAccountNumContained(accountNum)){
+        if (!IsAccountNumContained(accountNum, u)){
             system("clear");
             printf("This account don't exist.");
             mainMenu(u);
@@ -108,7 +108,7 @@ void initMenu(struct User *u)
         {
         case 1:
             loginMenu(u->name, u->password);
-            if (strcmp(u->password, getPassword(*u)) == 0)
+            if (strcmp(u->password, getPassword(u)) == 0)
             {
                 printf("\n\nPassword Match!");
             }
@@ -120,7 +120,6 @@ void initMenu(struct User *u)
             r = 1;
             break;
         case 2:
-            // student TODO : add your **Registration** function
             registerMenu(u->name, u->password);
             r = 1;
             break;

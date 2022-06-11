@@ -10,7 +10,7 @@ bool isContain(char array[100][100], char* str){
     return false;
 }
 
-bool IsAccountNumContained(int num){
+bool IsAccountNumContained(int num, struct User u){
     struct Record r;
     FILE *pf = fopen("./data/records.txt", "r+");
 
@@ -20,7 +20,7 @@ bool IsAccountNumContained(int num){
         &r.deposit.year, r.country,
         &r.phone, &r.amount, r.accountType) != EOF){
         
-        if(num == r.accountNbr){
+        if(num == r.accountNbr && strcmp(r.name, u.name) == 0){
             return true;
         }
     }
